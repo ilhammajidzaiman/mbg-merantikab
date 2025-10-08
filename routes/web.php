@@ -1,7 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
+});
+
+
+Route::prefix('/')->controller(Controllers\HomeController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
 });
