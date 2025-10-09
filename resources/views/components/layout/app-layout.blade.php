@@ -23,7 +23,7 @@
     {{-- @livewireStyles --}}
 </head>
 
-<body class="bg-slate-100">
+<body class="bg-slate-100 text-lg">
     {{-- <x-layout.navigation /> --}}
     {{ $slot }}
     <x-layout.footer />
