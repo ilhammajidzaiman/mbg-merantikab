@@ -28,13 +28,32 @@
             <div x-data="{
                 active: 0,
                 total: {{ count($carousel) }},
-                next() { this.active = (this.active + 1) % this.total },
-                prev() { this.active = (this.active - 1 + this.total) % this.total },
-                init() { setInterval(() => this.next(), 4000) }
+                timer: null,
+            
+                next() {
+                    this.active = (this.active + 1) % this.total
+                    this.restart()
+                },
+                prev() {
+                    this.active = (this.active - 1 + this.total) % this.total
+                    this.restart()
+                },
+                goTo(index) {
+                    this.active = index
+                    this.restart()
+                },
+                restart() {
+                    clearInterval(this.timer)
+                    this.timer = setInterval(() => this.next(), 4000)
+                },
+                init() {
+                    this.timer = setInterval(() => this.next(), 4000)
+                }
             }"
                 class="relative w-full aspect-square md:aspect-video overflow-hidden rounded-lg shadow-md">
+                {{-- Gambar --}}
                 @foreach ($carousel as $index => $item)
-                    <div x-show="active === {{ $index }}"
+                    <div x-show="active === {{ $index }}" x-cloak
                         x-transition:enter="transition-opacity duration-700 ease-in" x-transition:enter-start="opacity-0"
                         x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-700 ease-out"
                         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
@@ -66,7 +85,7 @@
                 </div>
                 <div class="hidden md:flex absolute bottom-2 left-0 right-0 justify-center gap-2">
                     @foreach ($carousel as $index => $_)
-                        <button @click="active={{ $index }}"
+                        <button @click="goTo({{ $index }})"
                             :class="active === {{ $index }} ? 'bg-white' : 'bg-white/40'"
                             class="w-3 h-3 rounded-full transition-all duration-300">
                         </button>
@@ -326,71 +345,113 @@
 
     <x-wrapper class="py-20">
         <x-container>
-            <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-full mb-8">
-                    <div class="text-center space-y-2">
-                        <h1 class="text-4xl md:text-4xl font-bold text-blue-900">
-                            Kegiatan<span class="font-extrabold text-yellow-600">_</span></h1>
-                        <h3 class="text-start md:text-center text-xl font-normal">
-                            Kegiatan Pemerintah Kab. Kep. Meranti dalam program penyaluran Makan Bergizi Gratis.
-                        </h3>
-                    </div>
-                </div>
-                @php
-                    $kegiatan = [
-                        (object) [
-                            'file' => asset('kindergarten-student-bro.svg'),
-                        ],
-                        (object) [
-                            'file' => asset('children-bro.svg'),
-                        ],
-                        (object) [
-                            'file' => asset('motherhood-bro.svg'),
-                        ],
-                        (object) [
-                            'file' => asset('children-bro.svg'),
-                        ],
-                        (object) [
-                            'file' => asset('motherhood-bro.svg'),
-                        ],
-                        (object) [
-                            'file' => asset('children-bro.svg'),
-                        ],
-                        (object) [
-                            'file' => asset('motherhood-bro.svg'),
-                        ],
-                        (object) [
-                            'file' => asset('kindergarten-student-bro.svg'),
-                        ],
-                        (object) [
-                            'file' => asset('motherhood-bro.svg'),
-                        ],
-                    ];
-                @endphp
-                @foreach ($kegiatan as $item)
-                    <div class="col-span-full md:col-span-4">
-                        <div class="bg-white rounded-lg shadow-xs gap-4">
-                            <div class="aspect-video overflow-hidden rounded-lg">
-                                <img src="{{ $item->file ?? null }}"
-                                    class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
-                            </div>
+            @php
+                $kegiatan = [
+                    (object) [
+                        'file' => asset('kindergarten-student-bro.svg'),
+                        'description' =>
+                            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum suscipit molestiae quisquam!',
+                    ],
+                    (object) [
+                        'file' => asset('children-bro.svg'),
+                        'description' =>
+                            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ea omnis qui quisquam!',
+                    ],
+                    (object) [
+                        'file' => asset('motherhood-bro.svg'),
+                        'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
+                    ],
+                    (object) [
+                        'file' => asset('children-bro.svg'),
+                        'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis.',
+                    ],
+                    (object) [
+                        'file' => asset('motherhood-bro.svg'),
+                        'description' => 'Lorem ipsum dolor sit amet consectetur.',
+                    ],
+                    (object) [
+                        'file' => asset('children-bro.svg'),
+                        'description' =>
+                            'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis voluptate nostrum, adipisci exercitationem itaque ipsa magni.',
+                    ],
+                    (object) [
+                        'file' => asset('motherhood-bro.svg'),
+                        'description' =>
+                            'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore amet quisquam deserunt vitae odio obcaecati, atque deleniti numquam saepe.',
+                    ],
+                    (object) [
+                        'file' => asset('kindergarten-student-bro.svg'),
+                        'description' =>
+                            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error exercitationem deleniti veritatis doloremque, molestiae repellendus at quis, nemo nesciunt quos vitae, quasi fugit. Voluptate animi quam aliquam?',
+                    ],
+                    (object) ['file' => asset('motherhood-bro.svg'), 'description' => 'Lorem, ipsum dolor.'],
+                ];
+            @endphp
+            <div x-data="{ open: false, selected: {} }" class="relative">
+                <div class="grid grid-cols-12 gap-4">
+                    <div class="col-span-full mb-8">
+                        <div class="text-center space-y-2">
+                            <h1 class="text-4xl md:text-4xl font-bold text-blue-900">
+                                Kegiatan<span class="font-extrabold text-yellow-600">_</span>
+                            </h1>
+                            <h3 class="text-start md:text-center text-xl font-normal">
+                                Kegiatan Pemerintah Kab. Kep. Meranti dalam program penyaluran Makan Bergizi Gratis.
+                            </h3>
                         </div>
                     </div>
-                @endforeach
-                <div class="col-span-full">
-                    <div class="flex items-center gap-4">
-                        <div class="grow h-px bg-yellow-600"></div>
-                        <a href="{{ route('index') }}"
-                            class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-600 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
-                            Selengkapnya
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="size-4">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
-                            </svg>
-                        </a>
+                    @foreach ($kegiatan as $item)
+                        <div class="col-span-full md:col-span-4">
+                            <div class="bg-white rounded-lg shadow-xs gap-4 cursor-pointer"
+                                @click="selected = { file: '{{ $item->file ?? null }}', description: '{{ $item->description ?? 'Tidak ada deskripsi.' }}' }; open = true;">
+                                <div class="aspect-video overflow-hidden rounded-lg">
+                                    <img src="{{ $item->file }}"
+                                        class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    <div class="col-span-full">
+                        <div class="flex items-center gap-4">
+                            <div class="grow h-px bg-yellow-600"></div>
+                            <a href="{{ route('index') }}"
+                                class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-600 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
+                                Selengkapnya
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <template x-teleport="body">
+                    <div x-show="open" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
+                        <div x-show="open" x-transition:enter="transition-opacity ease-out duration-300"
+                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                            x-transition:leave="transition-opacity ease-in duration-500 delay-200"
+                            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                            class="absolute inset-0 bg-slate-800/50 backdrop-blur-xs" @click="open = false">
+                        </div>
+                        <div x-show="open" x-transition:enter="transition ease-out duration-500 delay-200"
+                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                            x-transition:leave="transition ease-in duration-300"
+                            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                            class="relative bg-white rounded-xl shadow-lg max-w-3xl w-full mx-4 overflow-hidden z-10">
+                            <button @click="open = false"
+                                class="absolute top-2 right-2 text-slate-500 hover:text-slate-800 z-20">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                            <div class="aspect-video bg-slate-200">
+                                <img :src="selected.file" alt="image" class="w-full h-full object-contain">
+                            </div>
+                            <div x-text="selected.description" class="p-4"></div>
+                        </div>
+                    </div>
+                </template>
             </div>
         </x-container>
     </x-wrapper>

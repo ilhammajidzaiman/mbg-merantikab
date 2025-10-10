@@ -3,6 +3,10 @@ body {
     font-family: "Inter", sans-serif;
 }
 
+[x-cloak] {
+    display: none !important;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
