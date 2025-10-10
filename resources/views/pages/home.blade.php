@@ -1,11 +1,77 @@
 <x-layout.app-layout title="{{ Str::headline(__('beranda')) }}">
 
     @include('components.layout.navigation')
-    <x-wrapper>
+    <x-wrapper class="mt-22">
         <x-container>
-            <div class="w-full h-full aspect-video overflow-hidden bg-slate-200 rounded-lg">
-
-                <img src="" alt="">
+            @php
+                $carousel = [
+                    (object) [
+                        'title' =>
+                            'Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing.Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing.Lorem ipsum dolor sit amet, consectetur adipisicing.',
+                        'file' => asset('kindergarten-student-bro.svg'),
+                    ],
+                    (object) [
+                        'title' => 'Lorem ipsum dolor sit.',
+                        'file' => asset('children-bro.svg'),
+                    ],
+                    (object) [
+                        'title' =>
+                            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
+                        'file' => asset('motherhood-bro.svg'),
+                    ],
+                    (object) [
+                        'title' => 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
+                        'file' => asset('mbg.webp'),
+                    ],
+                ];
+            @endphp
+            <div x-data="{
+                active: 0,
+                total: {{ count($carousel) }},
+                next() { this.active = (this.active + 1) % this.total },
+                prev() { this.active = (this.active - 1 + this.total) % this.total },
+                init() { setInterval(() => this.next(), 4000) }
+            }"
+                class="relative w-full aspect-square md:aspect-video overflow-hidden rounded-lg shadow-md">
+                @foreach ($carousel as $index => $item)
+                    <div x-show="active === {{ $index }}"
+                        x-transition:enter="transition-opacity duration-700 ease-in" x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-700 ease-out"
+                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                        class="absolute inset-0 w-full h-full">
+                        <img src="{{ $item->file }}" alt="image" class="w-full h-full object-cover rounded-lg">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 bg-slate-700/30 text-shadow-md text-white text-center font-medium text-xl p-4 h-24 flex items-center justify-center">
+                            <p class="line-clamp-2">
+                                {{ $item->title }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+                <div class="hidden md:block">
+                    <button @click="prev"
+                        class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/80 p-2 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+                    <button @click="next"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/80 p-2 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="hidden md:flex absolute bottom-2 left-0 right-0 justify-center gap-2">
+                    @foreach ($carousel as $index => $_)
+                        <button @click="active={{ $index }}"
+                            :class="active === {{ $index }} ? 'bg-white' : 'bg-white/40'"
+                            class="w-3 h-3 rounded-full transition-all duration-300">
+                        </button>
+                    @endforeach
+                </div>
             </div>
         </x-container>
     </x-wrapper>
@@ -14,7 +80,7 @@
             <div class="grid grid-cols-12 gap-8 items-center">
                 <div class="col-span-full md:col-span-6 order-1 md:order-2">
                     <div class="flex justify-center md:justify-end">
-                        <img src="logo-bgn.png" class="w-auto h-auto p-10">
+                        <img src="logo-bgn.png" class="w-auto h-auto px-10">
                     </div>
                 </div>
                 <div class="col-span-full md:col-span-6 order-2 md:order-1">
@@ -23,12 +89,12 @@
                             Tentang
                         </h3>
                         <h1 class="text-3xl md:text-4xl font-bold text-blue-950">
-                            Makan Gizi Gratis (MBG)
+                            Makan Bergizi Gratis (MBG)
                             <span class="font-extrabold text-yellow-600">_</span>
                         </h1>
                         {{-- <h3 class="text-2xl font-normal"> — Seorang programmer dan web developer. </h3> --}}
                         <p class="font-light mt-6">
-                            Makan Gizi Gratis (MBG) adalah program penyediaan makanan sehat dan bergizi secara gratis
+                            Makan Bergizi Gratis (MBG) adalah program penyediaan makanan sehat dan bergizi secara gratis
                             yang diatur dan dibiayai oleh pemerintah. Tujuannya agar masyarakat — khususnya anak-anak —
                             tidak kekurangan gizi dan dapat tumbuh dengan sehat serta produktif.
                         </p>
@@ -47,42 +113,51 @@
         <x-container>
             <div class="col-span-full space-y-8 px-4">
                 <div class="text-center space-y-2">
-                    <h1 class="text-xl font-bold text-white">
+                    <h1 class="text-xl text-white">
                         Instansi yang berkolaborasi mewujudkan program Makan Bergizi Gratis(MBG) untuk mewujudkan
-                        Indonesia yang lebih kuat.
-                        <span class="font-extrabold text-yellow-600">_</span>
+                        Indonesia yang lebih kuat
                     </h1>
-                    {{-- <h3 class="text-xl font-semibold"> Teknologi yang saya gunakan. </h3> --}}
                 </div>
                 <div class="flex flex-wrap justify-center gap-4">
-                    <div class="flex items-center gap-4 bg-white hover:bg-slate-100 px-4 py-2 rounded-lg">
-                        <img src="logo.png" class="w-auto h-16 aspect-square">
-                        <span class="text-xl text-sky-950">lorem</span>
-                    </div>
-                    <div class="flex items-center gap-4 bg-white hover:bg-slate-100 px-4 py-2 rounded-lg">
-                        <img src="logo.png" class="w-auto h-16 aspect-square">
-                        <span class="text-xl text-sky-950">Lorem, ipsum.</span>
-                    </div>
-                    <div class="flex items-center gap-4 bg-white hover:bg-slate-100 px-4 py-2 rounded-lg">
-                        <img src="logo.png" class="w-auto h-16 aspect-square">
-                        <span class="text-xl text-sky-950">lorem</span>
-                    </div>
-                    <div class="flex items-center gap-4 bg-white hover:bg-slate-100 px-4 py-2 rounded-lg">
-                        <img src="logo.png" class="w-auto h-16 aspect-square">
-                        <span class="text-xl text-sky-950">Lorem, ipsum dolor.</span>
-                    </div>
-                    <div class="flex items-center gap-4 bg-white hover:bg-slate-100 px-4 py-2 rounded-lg">
-                        <img src="logo.png" class="w-auto h-16 aspect-square">
-                        <span class="text-xl text-sky-950">lorem</span>
-                    </div>
-                    <div class="flex items-center gap-4 bg-white hover:bg-slate-100 px-4 py-2 rounded-lg">
-                        <img src="logo.png" class="w-auto h-16 aspect-square">
-                        <span class="text-xl text-sky-950">lorem</span>
-                    </div>
-                    <div class="flex items-center gap-4 bg-white hover:bg-slate-100 px-4 py-2 rounded-lg">
-                        <img src="logo.png" class="w-auto h-16 aspect-square">
-                        <span class="text-xl text-sky-950">Lorem, ipsum.</span>
-                    </div>
+                    @php
+                        $shortcut = [
+                            (object) [
+                                'title' => 'Lorem, ipsum.',
+                                'file' => asset('logo.png'),
+                            ],
+                            (object) [
+                                'title' => 'Lorem',
+                                'file' => asset('logo.png'),
+                            ],
+                            (object) [
+                                'title' => 'Lorem, ipsum dolor.',
+                                'file' => asset('logo.png'),
+                            ],
+                            (object) [
+                                'title' => 'Lorem ipsum dolor sit.',
+                                'file' => asset('logo.png'),
+                            ],
+                            (object) [
+                                'title' => 'Lorem',
+                                'file' => asset('logo.png'),
+                            ],
+                            (object) [
+                                'title' => 'Lorem ipsum dolor sit amet consectetur.',
+                                'file' => asset('logo.png'),
+                            ],
+                            (object) [
+                                'title' => 'Lorem, ipsum.',
+                                'file' => asset('logo.png'),
+                            ],
+                        ];
+                    @endphp
+                    @foreach ($shortcut as $item)
+                        <div
+                            class="flex items-center gap-4 bg-white hover:bg-slate-100 px-4 py-2 rounded-lg transition duration-300 ease-in-out hover:scale-105 ">
+                            <img src="{{ $item->file }}" class="w-auto h-16 aspect-square">
+                            <span class="text-xl text-sky-950">{{ $item->title ?? null }}</span>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </x-container>
@@ -91,15 +166,164 @@
     <x-wrapper class="py-20">
         <x-container>
             <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-full md:col-span-4">
-                    <div class="shadow-md rounded-lg">
+                <div class="col-span-full mb-8">
+                    <div class="space-y-2">
+                        <h1 class="text-4xl md:text-4xl font-bold text-blue-900">
+                            Sasaran
+                            <span class="font-extrabold text-yellow-600">_</span>
+                        </h1>
+                        <h3 class="text-xl font-normal">
+                            Sasaran program Makan Bergizi Gratis Mendukung kesehatan gizi melalui berbagai program untuk
+                            memastikan setiap individu mendapatkan kebutuhan gizi yang optimal.
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-full md:grid-cols-3 gap-4">
+                @php
+                    $sasaran = [
+                        (object) [
+                            'title' => 'Peserta Didik',
+                            'subtitle' => 'SD, SMP, SMA Sederajat, Santri',
+                            'description' =>
+                                'Berfokus pada jenjang pendidikan anak usia dini, pendidikan dasar, dan pendidikan menengah di berbagai lingkungan, meliputi pendidikan umum, kejuruan, keagamaan, pendidikan khusus, layanan khusus, serta pesantren.',
+                            'file' => asset('kindergarten-student-bro.svg'),
+                        ],
+                        (object) [
+                            'title' => 'Anak - Anak',
+                            'subtitle' => 'Anak usia di Bawah 5 Tahun',
+                            'description' =>
+                                'Pemantauan dan dukungan gizi intensif bagi anak-anak dalam usia emas perkembangan mereka..',
+                            'file' => asset('children-bro.svg'),
+                        ],
+                        (object) [
+                            'title' => 'Ibu Hamil & Menyusui',
+                            'subtitle' => 'Gizi untuk Ibu Hamil & Menyusui',
+                            'description' =>
+                                'Memastikan kesehatan gizi ibu hamil dan menyusui demi kesehatan ibu dan bayi yang optimal hingga mendukung pertumbuhan dan perkembangan bayi mereka.',
+                            'file' => asset('motherhood-bro.svg'),
+                        ],
+                    ];
+                @endphp
+                @foreach ($sasaran as $item)
+                    <div class="flex flex-col">
+                        <div
+                            class="flex flex-col h-full bg-white shadow-md rounded-lg space-y-2 p-4 transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+                            <img src="{{ $item->file ?? null }}" alt="image" class="w-auto h-64 aspect-square p-4" />
+                            <h1 class="text-xl font-bold text-blue-900 line-clamp-1">
+                                {{ $item->title ?? null }}
+                            </h1>
+                            <h3 class="text-yellow-600 text-normal line-clamp-1">
+                                {{ $item->subtitle ?? null }}
+                            </h3>
+                            <p class="flex-1">
+                                {{ $item->description ?? null }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </x-container>
+    </x-wrapper>
 
-                        <img src="{{ asset('logo.png') }}" alt="SIMPeg" class="w-auto h-60">
+    <x-wrapper class="py-20 bg-white">
+        <x-container>
+            <div class="grid grid-cols-12 gap-4 ">
+                <div class="col-span-full mb-8">
+                    <div class="space-y-2">
+                        <h1 class="text-4xl md:text-4xl font-bold text-blue-900">
+                            Berita Terkait
+                            <span class="font-extrabold text-yellow-600">_</span>
+                        </h1>
+                        <h3 class="text-xl font-normal">
+                            Berita terkait program Makan Bergizi Gratis.
+                        </h3>
+                    </div>
+                </div>
+                @php
+                    $berita = [
+                        (object) [
+                            'title' => 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
+                            'file' => asset('kindergarten-student-bro.svg'),
+                        ],
+                        (object) [
+                            'title' => 'Lorem ipsum dolor sit.',
+                            'file' => asset('children-bro.svg'),
+                        ],
+                        (object) [
+                            'title' =>
+                                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
+                            'file' => asset('motherhood-bro.svg'),
+                        ],
+                        (object) [
+                            'title' =>
+                                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis veritatis atque iste odio dignissimos earum labore.',
+                            'file' => asset('children-bro.svg'),
+                        ],
+                        (object) [
+                            'title' =>
+                                'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis sit commodi laudantium praesentium odit totam reprehenderit cumque! Quo, necessitatibus!',
+                            'file' => asset('motherhood-bro.svg'),
+                        ],
+                        (object) [
+                            'title' =>
+                                'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est, deserunt optio alias ipsa iste corrupti?',
+                            'file' => asset('children-bro.svg'),
+                        ],
+                        (object) [
+                            'title' =>
+                                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid provident cumque enim repellat a temporibus corrupti recusandae velit ipsum culpa.',
+                            'file' => asset('motherhood-bro.svg'),
+                        ],
+                        (object) [
+                            'title' =>
+                                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi commodi explicabo quas. Eos harum adipisci illum eaque.',
+                            'file' => asset('kindergarten-student-bro.svg'),
+                        ],
+                        (object) [
+                            'title' =>
+                                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptas debitis eum.',
+                            'file' => asset('motherhood-bro.svg'),
+                        ],
+                    ];
+                @endphp
+
+                @foreach ($berita as $item)
+                    <div class="col-span-full md:col-span-4">
+                        <div class="">
+                            <div class="flex flex-col space-y-2">
+                                <div class="aspect-video overflow-hidden rounded-lg"><img
+                                        src="{{ $item->file ?? null }}"
+                                        class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
+                                </div>
+                                <h1 class="line-clamp-2 mb-4">
+                                    <a href="#" class="hover:underline">
+                                        {{ $item->title ?? null }}
+                                    </a>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+                <div class="col-span-full">
+                    <div class="flex items-center gap-4">
+                        <div class="grow h-px bg-yellow-600"></div>
+                        <a href="{{ route('index') }}"
+                            class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-600 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
+                            Selengkapnya
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
+                            </svg></a>
                     </div>
                 </div>
             </div>
         </x-container>
     </x-wrapper>
+
+
     <x-wrapper class="py-20">
         <x-container>
             <div class="grid grid-cols-12 gap-4">
@@ -112,67 +336,59 @@
                         </h3>
                     </div>
                 </div>
-                <div class="col-span-full md:col-span-4">
-                    <div class="bg-white rounded-lg shadow-xs gap-4">
-                        <div class="aspect-video overflow-hidden rounded-lg"><img src="/project/thumbnail/simpeg.png"
-                                alt="SIMPeg"
-                                class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-span-full">
-                    <div class="flex items-center gap-4">
-                        <div class="grow h-px bg-yellow-500"></div><a href="/project"
-                            class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-500 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
-                            Selengkapnya <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="size-4">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
-                            </svg></a>
-                    </div>
-                </div>
-            </div>
-        </x-container>
-    </x-wrapper>
-    <x-wrapper class="py-20">
-        <x-container>
-            <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-full mb-8">
-                    <div class="space-y-2">
-                        <h1 class="text-4xl md:text-4xl font-bold text-blue-900">
-                            Berita<span class="font-extrabold text-yellow-600">_</span></h1>
-                        <h3 class="text-xl font-normal">
-                            Berita terkait program Makan Bergizi Gratis.
-                        </h3>
-                    </div>
-                </div>
-                <div class="col-span-full md:col-span-4">
-                    <div class="bg-white rounded-lg shadow-xs gap-4">
-                        <div class="flex flex-col">
-                            <div class="aspect-video overflow-hidden rounded-lg"><img
-                                    src="/project/thumbnail/simpeg.png" alt="SIMPeg"
+                @php
+                    $kegiatan = [
+                        (object) [
+                            'file' => asset('kindergarten-student-bro.svg'),
+                        ],
+                        (object) [
+                            'file' => asset('children-bro.svg'),
+                        ],
+                        (object) [
+                            'file' => asset('motherhood-bro.svg'),
+                        ],
+                        (object) [
+                            'file' => asset('children-bro.svg'),
+                        ],
+                        (object) [
+                            'file' => asset('motherhood-bro.svg'),
+                        ],
+                        (object) [
+                            'file' => asset('children-bro.svg'),
+                        ],
+                        (object) [
+                            'file' => asset('motherhood-bro.svg'),
+                        ],
+                        (object) [
+                            'file' => asset('kindergarten-student-bro.svg'),
+                        ],
+                        (object) [
+                            'file' => asset('motherhood-bro.svg'),
+                        ],
+                    ];
+                @endphp
+                @foreach ($kegiatan as $item)
+                    <div class="col-span-full md:col-span-4">
+                        <div class="bg-white rounded-lg shadow-xs gap-4">
+                            <div class="aspect-video overflow-hidden rounded-lg">
+                                <img src="{{ $item->file ?? null }}"
                                     class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
                             </div>
-                            <div class="p-4 space-y-2">
-                                <h1 class="text-2xl font-normal line-clamp-3"><a href="#"
-                                        class="hover:underline">SIMPeg</a></h1>
-                                <h3 class="text-lg font-normal line-clamp-3">Sistem Informasi Manajemen
-                                    Kepegawaian Kabupaten Kepulauan Meranti.</h3>
-                            </div>
                         </div>
                     </div>
-                </div>
-
+                @endforeach
                 <div class="col-span-full">
                     <div class="flex items-center gap-4">
-                        <div class="grow h-px bg-yellow-500"></div><a href="/project"
-                            class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-500 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
-                            Selengkapnya <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        <div class="grow h-px bg-yellow-600"></div>
+                        <a href="{{ route('index') }}"
+                            class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-600 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
+                            Selengkapnya
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
-                            </svg></a>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -183,14 +399,26 @@
         <x-container>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-full md:col-span-4">
-                    <img src="{{ asset('logo.png') }}" alt="SIMPeg" class="w-auto h-60">
+                    <img src="{{ asset('logo.png') }}" class="w-auto h-60">
                 </div>
                 <div class="col-span-full md:col-span-8">
-                    <div class="p-4 space-y-2">
-                        <h1 class="text-2xl font-normal line-clamp-3"><a href="#"
-                                class="hover:underline">SIMPeg</a></h1>
-                        <h3 class="text-lg font-normal line-clamp-3">Sistem Informasi Manajemen
-                            Kepegawaian Kabupaten Kepulauan Meranti.</h3>
+                    <div class="space-y-2">
+                        <h1 class="text-4xl md:text-4xl font-bold text-white">
+                            Pengaduan
+                            <span class="font-extrabold text-yellow-600">_</span>
+                        </h1>
+                        <h3 class="text-xl font-normal">
+                            Suarakan Pengaduanmu untuk Layanan Gizi yang Lebih Baik!
+                        </h3>
+                        <p class="mb-4">
+                            Badan Gizi Nasional kini terhubung dengan SP4N LAPOR! untuk menerima pengaduan dan laporan
+                            dari masyarakat. Laporkan permasalahan terkait layanan gizi secara cepat dan mudah melalui
+                            platform resmi. Bersama kita wujudkan pelayanan yang lebih responsif dan transparan.
+                        </p>
+                        <a href="https://bgn.lapor.go.id/" target="_blank"
+                            class="rounded-lg bg-yellow-600 hover:bg-yellow-700 px-4 py-2">
+                            Pengaduan
+                        </a>
                     </div>
                 </div>
             </div>
