@@ -63,7 +63,7 @@
                 <div class="col-span-full ">
                     <div class="flex justify-start items-center ">
                         <div class="flex flex-row items-center justify-center gap-2">
-                            <img src="{{ asset('logo.png') }}" alt="" class="h-10 w-auto" />
+                            <img src="{{ asset('logo-meranti.png') }}" alt="" class="h-10 w-auto" />
                             <div class=" self-stretch w-1 h-auto bg-yellow-600 rounded-xl"></div>
                             <div
                                 class="flex flex-col flex-wrap justify-start items-start gap-0 font-bold text-xs text-center md:text-left">
@@ -137,7 +137,7 @@
                 <el-dialog-panel
                     class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                     <div class="flex items-center justify-between">
-                        <a href="#" class="-m-1.5 p-1.5">
+                        <a wire:navigate href="#" class="-m-1.5 p-1.5">
                             <span class="sr-only">Your Company</span>
                             <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
                                 alt="" class="h-8 w-auto" />
@@ -166,33 +166,34 @@
                                         </svg>
                                     </button>
                                     <el-disclosure id="products" hidden class="mt-2 block space-y-2">
-                                        <a href="#"
+                                        <a wire:navigate href="#"
                                             class="block rounded-lg py-2 pr-3 pl-6 hover:bg-gray-50">Analytics</a>
-                                        <a href="#"
+                                        <a wire:navigate href="#"
                                             class="block rounded-lg py-2 pr-3 pl-6 hover:bg-gray-50">Engagement</a>
-                                        <a href="#"
+                                        <a wire:navigate href="#"
                                             class="block rounded-lg py-2 pr-3 pl-6 hover:bg-gray-50">Security</a>
-                                        <a href="#"
+                                        <a wire:navigate href="#"
                                             class="block rounded-lg py-2 pr-3 pl-6 hover:bg-gray-50">Integrations</a>
-                                        <a href="#"
+                                        <a wire:navigate href="#"
                                             class="block rounded-lg py-2 pr-3 pl-6 hover:bg-gray-50">Automations</a>
-                                        <a href="#"
+                                        <a wire:navigate href="#"
                                             class="block rounded-lg py-2 pr-3 pl-6 hover:bg-gray-50">Watch
                                             demo</a>
-                                        <a href="#"
+                                        <a wire:navigate href="#"
                                             class="block rounded-lg py-2 pr-3 pl-6 hover:bg-gray-50">Contact
                                             sales</a>
                                     </el-disclosure>
                                 </div>
-                                <a href="#"
+                                <a wire:navigate href="#"
                                     class="-mx-3 block rounded-lg px-3 py-2 hover:bg-gray-50">Features</a>
-                                <a href="#"
+                                <a wire:navigate href="#"
                                     class="-mx-3 block rounded-lg px-3 py-2 hover:bg-gray-50">Marketplace</a>
-                                <a href="#"
+                                <a wire:navigate href="#"
                                     class="-mx-3 block rounded-lg px-3 py-2 hover:bg-gray-50">Company</a>
                             </div>
                             <div class="py-6">
-                                <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 hover:bg-gray-50">Log
+                                <a wire:navigate href="#"
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 hover:bg-gray-50">Log
                                     in</a>
                             </div>
                         </div>

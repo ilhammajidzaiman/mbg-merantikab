@@ -1,100 +1,89 @@
 <x-layout.app-layout title="{{ Str::headline(__('beranda')) }}">
 
     @include('components.layout.navigation')
-    <x-wrapper class="mt-22">
+
+    <x-wrapper id="carousel" class="mt-22">
         <x-container>
-            @php
-                $carousel = [
-                    (object) [
-                        'title' =>
-                            'Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing.Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing.Lorem ipsum dolor sit amet, consectetur adipisicing.',
-                        'file' => asset('kindergarten-student-bro.svg'),
-                    ],
-                    (object) [
-                        'title' => 'Lorem ipsum dolor sit.',
-                        'file' => asset('children-bro.svg'),
-                    ],
-                    (object) [
-                        'title' =>
-                            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
-                        'file' => asset('motherhood-bro.svg'),
-                    ],
-                    (object) [
-                        'title' => 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
-                        'file' => asset('mbg.webp'),
-                    ],
-                ];
-            @endphp
-            <div x-data="{
-                active: 0,
-                total: {{ count($carousel) }},
-                timer: null,
-            
-                next() {
-                    this.active = (this.active + 1) % this.total
-                    this.restart()
-                },
-                prev() {
-                    this.active = (this.active - 1 + this.total) % this.total
-                    this.restart()
-                },
-                goTo(index) {
-                    this.active = index
-                    this.restart()
-                },
-                restart() {
-                    clearInterval(this.timer)
-                    this.timer = setInterval(() => this.next(), 4000)
-                },
-                init() {
-                    this.timer = setInterval(() => this.next(), 4000)
-                }
-            }"
-                class="relative w-full aspect-square md:aspect-video overflow-hidden rounded-lg shadow-md">
-                {{-- Gambar --}}
-                @foreach ($carousel as $index => $item)
-                    <div x-show="active === {{ $index }}" x-cloak
-                        x-transition:enter="transition-opacity duration-700 ease-in" x-transition:enter-start="opacity-0"
-                        x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-700 ease-out"
-                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                        class="absolute inset-0 w-full h-full">
-                        <img src="{{ $item->file }}" alt="image" class="w-full h-full object-cover rounded-lg">
-                        <div
-                            class="absolute bottom-0 left-0 right-0 bg-slate-700/30 text-shadow-md text-white text-center font-medium text-xl p-4 h-24 flex items-center justify-center">
-                            <p class="line-clamp-2">
-                                {{ $item->title }}
-                            </p>
+            @if ($carousel)
+                {{-- @if ($carousel->isNotEmpty()) --}}
+                <div x-data="{
+                    active: 0,
+                    total: {{ count($carousel) }},
+                    timer: null,
+                
+                    next() {
+                        this.active = (this.active + 1) % this.total
+                        this.restart()
+                    },
+                    prev() {
+                        this.active = (this.active - 1 + this.total) % this.total
+                        this.restart()
+                    },
+                    goTo(index) {
+                        this.active = index
+                        this.restart()
+                    },
+                    restart() {
+                        clearInterval(this.timer)
+                        this.timer = setInterval(() => this.next(), 4000)
+                    },
+                    init() {
+                        this.timer = setInterval(() => this.next(), 4000)
+                    }
+                }"
+                    class="relative w-full aspect-square md:aspect-video overflow-hidden rounded-lg shadow-md">
+                    {{-- Gambar --}}
+                    @foreach ($carousel as $index => $item)
+                        <div x-show="active === {{ $index }}" x-cloak
+                            x-transition:enter="transition-opacity duration-700 ease-in"
+                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                            x-transition:leave="transition-opacity duration-700 ease-out"
+                            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                            class="absolute inset-0 w-full h-full">
+                            <img src="{{ $item->file }}" alt="image" class="w-full h-full object-cover rounded-lg">
+                            <div
+                                class="absolute bottom-0 left-0 right-0 bg-slate-700/30 text-shadow-md text-white text-center font-medium text-xl p-4 h-24 flex items-center justify-center">
+                                <p class="line-clamp-2">
+                                    {{ $item->title }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
-                <div class="hidden md:block">
-                    <button @click="prev"
-                        class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/80 p-2 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                        </svg>
-                    </button>
-                    <button @click="next"
-                        class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/80 p-2 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="hidden md:flex absolute bottom-2 left-0 right-0 justify-center gap-2">
-                    @foreach ($carousel as $index => $_)
-                        <button @click="goTo({{ $index }})"
-                            :class="active === {{ $index }} ? 'bg-white' : 'bg-white/40'"
-                            class="w-3 h-3 rounded-full transition-all duration-300">
-                        </button>
                     @endforeach
+                    <div class="hidden md:block">
+                        <button @click="prev"
+                            class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/80 p-2 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                            </svg>
+                        </button>
+                        <button @click="next"
+                            class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/80 p-2 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="hidden md:flex absolute bottom-2 left-0 right-0 justify-center gap-2">
+                        @foreach ($carousel as $index => $_)
+                            <button @click="goTo({{ $index }})"
+                                :class="active === {{ $index }} ? 'bg-white' : 'bg-white/40'"
+                                class="w-3 h-3 rounded-full transition-all duration-300">
+                            </button>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @else
+                <div class="text-center p-4">
+                    <img src="{{ asset('transfer-files-bro.svg') }}" alt="image" class="w-auto h-64 mx-auto">
+                    <h1 class="text-xl">Data tidak ditemukan.</h1>
+                </div>
+            @endif
         </x-container>
     </x-wrapper>
-    <x-wrapper class="py-20">
+
+    <x-wrapper id="about" class="py-20">
         <x-container>
             <div class="grid grid-cols-12 gap-8 items-center">
                 <div class="col-span-full md:col-span-6 order-1 md:order-2">
@@ -128,61 +117,38 @@
         </x-container>
     </x-wrapper>
 
-    <x-wrapper class="bg-blue-950 text-white py-20 rounded-4xl">
+    <x-wrapper id="shortcut" class="bg-blue-950 text-white py-20 rounded-4xl">
         <x-container>
-            <div class="col-span-full space-y-8 px-4">
-                <div class="text-center space-y-2">
-                    <h1 class="text-xl text-white">
-                        Instansi yang berkolaborasi mewujudkan program Makan Bergizi Gratis(MBG) untuk mewujudkan
-                        Indonesia yang lebih kuat
-                    </h1>
+            @if ($shortcut)
+                {{-- @if ($shortcut->isNotEmpty()) --}}
+                <div class="col-span-full space-y-8 px-4">
+                    <div class="text-center space-y-2">
+                        <h1 class="text-xl text-white">
+                            Instansi yang berkolaborasi mewujudkan program Makan Bergizi Gratis(MBG) untuk mewujudkan
+                            Indonesia yang lebih kuat
+                        </h1>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-4">
+
+                        @foreach ($shortcut as $item)
+                            <div
+                                class="flex items-center gap-4 bg-white hover:bg-slate-100 px-4 py-2 rounded-lg transition duration-300 ease-in-out hover:scale-105 ">
+                                <img src="{{ $item->file }}" class="w-auto h-16 aspect-square">
+                                <span class="text-xl text-sky-950">{{ $item->title ?? null }}</span>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-                <div class="flex flex-wrap justify-center gap-4">
-                    @php
-                        $shortcut = [
-                            (object) [
-                                'title' => 'Lorem, ipsum.',
-                                'file' => asset('logo.png'),
-                            ],
-                            (object) [
-                                'title' => 'Lorem',
-                                'file' => asset('logo.png'),
-                            ],
-                            (object) [
-                                'title' => 'Lorem, ipsum dolor.',
-                                'file' => asset('logo.png'),
-                            ],
-                            (object) [
-                                'title' => 'Lorem ipsum dolor sit.',
-                                'file' => asset('logo.png'),
-                            ],
-                            (object) [
-                                'title' => 'Lorem',
-                                'file' => asset('logo.png'),
-                            ],
-                            (object) [
-                                'title' => 'Lorem ipsum dolor sit amet consectetur.',
-                                'file' => asset('logo.png'),
-                            ],
-                            (object) [
-                                'title' => 'Lorem, ipsum.',
-                                'file' => asset('logo.png'),
-                            ],
-                        ];
-                    @endphp
-                    @foreach ($shortcut as $item)
-                        <div
-                            class="flex items-center gap-4 bg-white hover:bg-slate-100 px-4 py-2 rounded-lg transition duration-300 ease-in-out hover:scale-105 ">
-                            <img src="{{ $item->file }}" class="w-auto h-16 aspect-square">
-                            <span class="text-xl text-sky-950">{{ $item->title ?? null }}</span>
-                        </div>
-                    @endforeach
+            @else
+                <div class="text-center p-4">
+                    <img src="{{ asset('transfer-files-bro.svg') }}" alt="image" class="w-auto h-64 mx-auto">
+                    <h1 class="text-xl">Data tidak ditemukan.</h1>
                 </div>
-            </div>
+            @endif
         </x-container>
     </x-wrapper>
 
-    <x-wrapper class="py-20">
+    <x-wrapper id="sasaran" class="py-20">
         <x-container>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-full mb-8">
@@ -199,36 +165,12 @@
                 </div>
             </div>
             <div class="grid grid-cols-full md:grid-cols-3 gap-4">
-                @php
-                    $sasaran = [
-                        (object) [
-                            'title' => 'Peserta Didik',
-                            'subtitle' => 'SD, SMP, SMA Sederajat, Santri',
-                            'description' =>
-                                'Berfokus pada jenjang pendidikan anak usia dini, pendidikan dasar, dan pendidikan menengah di berbagai lingkungan, meliputi pendidikan umum, kejuruan, keagamaan, pendidikan khusus, layanan khusus, serta pesantren.',
-                            'file' => asset('kindergarten-student-bro.svg'),
-                        ],
-                        (object) [
-                            'title' => 'Anak - Anak',
-                            'subtitle' => 'Anak usia di Bawah 5 Tahun',
-                            'description' =>
-                                'Pemantauan dan dukungan gizi intensif bagi anak-anak dalam usia emas perkembangan mereka..',
-                            'file' => asset('children-bro.svg'),
-                        ],
-                        (object) [
-                            'title' => 'Ibu Hamil & Menyusui',
-                            'subtitle' => 'Gizi untuk Ibu Hamil & Menyusui',
-                            'description' =>
-                                'Memastikan kesehatan gizi ibu hamil dan menyusui demi kesehatan ibu dan bayi yang optimal hingga mendukung pertumbuhan dan perkembangan bayi mereka.',
-                            'file' => asset('motherhood-bro.svg'),
-                        ],
-                    ];
-                @endphp
                 @foreach ($sasaran as $item)
                     <div class="flex flex-col">
                         <div
                             class="flex flex-col h-full bg-white shadow-md rounded-lg space-y-2 p-4 transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                            <img src="{{ $item->file ?? null }}" alt="image" class="w-auto h-64 aspect-square p-4" />
+                            <img src="{{ $item->file ?? null }}" alt="image"
+                                class="w-auto h-64 aspect-square p-4" />
                             <h1 class="text-xl font-bold text-blue-900 line-clamp-1">
                                 {{ $item->title ?? null }}
                             </h1>
@@ -245,7 +187,7 @@
         </x-container>
     </x-wrapper>
 
-    <x-wrapper class="py-20 bg-white">
+    <x-wrapper id="berita" class="py-20 bg-white">
         <x-container>
             <div class="grid grid-cols-12 gap-4 ">
                 <div class="col-span-full mb-8">
@@ -259,171 +201,53 @@
                         </h3>
                     </div>
                 </div>
-                @php
-                    $berita = [
-                        (object) [
-                            'title' => 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
-                            'slug' => trim(Str::slug('Lorem ipsum dolor sit amet, consectetur adipisicing.')),
-                            'file' => asset('kindergarten-student-bro.svg'),
-                        ],
-                        (object) [
-                            'title' => 'Lorem ipsum dolor sit.',
-                            'slug' => trim(Str::slug('Lorem ipsum dolor sit.')),
-                            'file' => asset('children-bro.svg'),
-                        ],
-                        (object) [
-                            'title' =>
-                                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
-                            'slug' => trim(
-                                Str::slug(
-                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
-                                ),
-                            ),
-                            'file' => asset('motherhood-bro.svg'),
-                        ],
-                        (object) [
-                            'title' =>
-                                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis veritatis atque iste odio dignissimos earum labore.',
-                            'slug' => trim(
-                                Str::slug(
-                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis veritatis atque iste odio dignissimos earum labore.',
-                                ),
-                            ),
-                            'file' => asset('children-bro.svg'),
-                        ],
-                        (object) [
-                            'title' =>
-                                'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis sit commodi laudantium praesentium odit totam reprehenderit cumque! Quo, necessitatibus!',
-                            'slug' => trim(
-                                Str::slug(
-                                    'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis sit commodi laudantium praesentium odit totam reprehenderit cumque! Quo, necessitatibus!',
-                                ),
-                            ),
-                            'file' => asset('motherhood-bro.svg'),
-                        ],
-                        (object) [
-                            'title' =>
-                                'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est, deserunt optio alias ipsa iste corrupti?',
-                            'slug' => trim(
-                                Str::slug(
-                                    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est, deserunt optio alias ipsa iste corrupti?',
-                                ),
-                            ),
-                            'file' => asset('children-bro.svg'),
-                        ],
-                        (object) [
-                            'title' =>
-                                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid provident cumque enim repellat a temporibus corrupti recusandae velit ipsum culpa.',
-                            'slug' => trim(
-                                Str::slug(
-                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid provident cumque enim repellat a temporibus corrupti recusandae velit ipsum culpa.',
-                                ),
-                            ),
-                            'file' => asset('motherhood-bro.svg'),
-                        ],
-                        (object) [
-                            'title' =>
-                                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi commodi explicabo quas. Eos harum adipisci illum eaque.',
-                            'slug' => trim(
-                                Str::slug(
-                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi commodi explicabo quas. Eos harum adipisci illum eaque.',
-                                ),
-                            ),
-                            'file' => asset('kindergarten-student-bro.svg'),
-                        ],
-                        (object) [
-                            'title' =>
-                                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptas debitis eum.',
-                            'slug' => trim(
-                                Str::slug(
-                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptas debitis eum.',
-                                ),
-                            ),
-                            'file' => asset('motherhood-bro.svg'),
-                        ],
-                    ];
-                @endphp
-
-                @foreach ($berita as $item)
-                    <div class="col-span-full md:col-span-4">
-                        <div class="">
-                            <div class="flex flex-col space-y-2">
-                                <div class="aspect-video overflow-hidden rounded-lg"><img
-                                        src="{{ $item->file ?? null }}"
-                                        class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
+                @if ($berita)
+                    {{-- @if ($berita->isNotEmpty()) --}}
+                    @foreach ($berita as $item)
+                        <div class="col-span-full md:col-span-4">
+                            <div class="">
+                                <div class="flex flex-col space-y-2">
+                                    <div class="aspect-video overflow-hidden rounded-lg"><img
+                                            src="{{ $item->file ?? null }}"
+                                            class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
+                                    </div>
+                                    <h1 class="line-clamp-2 mb-4">
+                                        <a wire:navigate href="{{ route('article.show', $item->slug ?? null) }}"
+                                            class="hover:underline">
+                                            {{ $item->title ?? null }}
+                                        </a>
+                                    </h1>
                                 </div>
-                                <h1 class="line-clamp-2 mb-4">
-                                    <a href="{{ route('article.show', $item->slug ?? null) }}" class="hover:underline">
-                                        {{ $item->title ?? null }}
-                                    </a>
-                                </h1>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
 
-                <div class="col-span-full">
-                    <div class="flex items-center gap-4">
-                        <div class="grow h-px bg-yellow-600"></div>
-                        <a href="{{ route('index') }}"
-                            class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-600 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
-                            Selengkapnya
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="size-4">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
-                            </svg></a>
+                    <div class="col-span-full">
+                        <div class="flex items-center gap-4">
+                            <div class="grow h-px bg-yellow-600"></div>
+                            <a wire:navigate href="{{ route('index') }}"
+                                class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-600 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
+                                Selengkapnya
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
+                                </svg></a>
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="col-span-full text-center p-4">
+                        <img src="{{ asset('transfer-files-bro.svg') }}" alt="image" class="w-auto h-64 mx-auto">
+                        <h1 class="text-xl">Data tidak ditemukan.</h1>
+                    </div>
+                @endif
+
             </div>
         </x-container>
     </x-wrapper>
 
-
-    <x-wrapper class="py-20">
+    <x-wrapper id="kegiatan" class="py-20">
         <x-container>
-            @php
-                $kegiatan = [
-                    (object) [
-                        'file' => asset('kindergarten-student-bro.svg'),
-                        'description' =>
-                            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum suscipit molestiae quisquam!',
-                    ],
-                    (object) [
-                        'file' => asset('children-bro.svg'),
-                        'description' =>
-                            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ea omnis qui quisquam!',
-                    ],
-                    (object) [
-                        'file' => asset('motherhood-bro.svg'),
-                        'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
-                    ],
-                    (object) [
-                        'file' => asset('children-bro.svg'),
-                        'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis.',
-                    ],
-                    (object) [
-                        'file' => asset('motherhood-bro.svg'),
-                        'description' => 'Lorem ipsum dolor sit amet consectetur.',
-                    ],
-                    (object) [
-                        'file' => asset('children-bro.svg'),
-                        'description' =>
-                            'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis voluptate nostrum, adipisci exercitationem itaque ipsa magni.',
-                    ],
-                    (object) [
-                        'file' => asset('motherhood-bro.svg'),
-                        'description' =>
-                            'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore amet quisquam deserunt vitae odio obcaecati, atque deleniti numquam saepe.',
-                    ],
-                    (object) [
-                        'file' => asset('kindergarten-student-bro.svg'),
-                        'description' =>
-                            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error exercitationem deleniti veritatis doloremque, molestiae repellendus at quis, nemo nesciunt quos vitae, quasi fugit. Voluptate animi quam aliquam?',
-                    ],
-                    (object) ['file' => asset('motherhood-bro.svg'), 'description' => 'Lorem, ipsum dolor.'],
-                ];
-            @endphp
             <div x-data="{ open: false, selected: {} }" class="relative">
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-full mb-8">
@@ -436,31 +260,41 @@
                             </h3>
                         </div>
                     </div>
-                    @foreach ($kegiatan as $item)
-                        <div class="col-span-full md:col-span-4">
-                            <div class="bg-white rounded-lg shadow-xs gap-4 cursor-pointer"
-                                @click="selected = { file: '{{ $item->file ?? null }}', description: '{{ $item->description ?? 'Tidak ada deskripsi.' }}' }; open = true;">
-                                <div class="aspect-video overflow-hidden rounded-lg">
-                                    <img src="{{ $item->file }}"
-                                        class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
+                    @if ($kegiatan)
+                        {{-- @if ($kegiatan->isNotEmpty()) --}}
+
+                        @foreach ($kegiatan as $item)
+                            <div class="col-span-full md:col-span-4">
+                                <div class="bg-white rounded-lg shadow-xs gap-4 cursor-pointer"
+                                    @click="selected = { file: '{{ $item->file ?? null }}', description: '{{ $item->description ?? 'Tidak ada deskripsi.' }}' }; open = true;">
+                                    <div class="aspect-video overflow-hidden rounded-lg">
+                                        <img src="{{ $item->file }}"
+                                            class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
+                                    </div>
                                 </div>
                             </div>
+                        @endforeach
+                        <div class="col-span-full">
+                            <div class="flex items-center gap-4">
+                                <div class="grow h-px bg-yellow-600"></div>
+                                <a wire:navigate href="{{ route('index') }}"
+                                    class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-600 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
+                                    Selengkapnya
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-                    @endforeach
-                    <div class="col-span-full">
-                        <div class="flex items-center gap-4">
-                            <div class="grow h-px bg-yellow-600"></div>
-                            <a href="{{ route('index') }}"
-                                class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-600 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
-                                Selengkapnya
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                                </svg>
-                            </a>
+                    @else
+                        <div class="col-span-full text-center p-4">
+                            <img src="{{ asset('transfer-files-bro.svg') }}" alt="image"
+                                class="w-auto h-64 mx-auto">
+                            <h1 class="text-xl">Data tidak ditemukan.</h1>
                         </div>
-                    </div>
+                    @endif
                 </div>
                 <template x-teleport="body">
                     <div x-show="open" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
@@ -493,7 +327,7 @@
         </x-container>
     </x-wrapper>
 
-    <x-wrapper class="bg-blue-950 text-white py-20 rounded-4xl">
+    <x-wrapper id="pengaduan" class="bg-blue-950 text-white py-20 rounded-4xl">
         <x-container>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-full md:col-span-4">
@@ -513,7 +347,7 @@
                             dari masyarakat. Laporkan permasalahan terkait layanan gizi secara cepat dan mudah melalui
                             platform resmi. Bersama kita wujudkan pelayanan yang lebih responsif dan transparan.
                         </p>
-                        <a href="https://bgn.lapor.go.id/" target="_blank"
+                        <a wire:navigate href="https://bgn.lapor.go.id/" target="_blank"
                             class="rounded-lg bg-yellow-600 hover:bg-yellow-700 px-4 py-2">
                             Pengaduan
                         </a>

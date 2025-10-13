@@ -3,11 +3,11 @@
         <div class="grid grid-cols-12 gap-8">
             <div class="col-span-full">
                 <div class="flex md:flex-1">
-                    <a href="{{ route('index') }}">
+                    <a wire:navigate href="{{ route('index') }}">
                         <div class="col-span-full ">
                             <div class="flex justify-start items-center ">
                                 <div class="flex flex-row items-center justify-center gap-2">
-                                    <img src="{{ asset('logo.png') }}" alt="" class="w-auto h-14" />
+                                    <img src="{{ asset('logo-meranti.png') }}" alt="" class="w-auto h-14" />
                                     <div class=" self-stretch w-1 h-auto bg-yellow-600 rounded-xl"></div>
                                     <div
                                         class="flex flex-col flex-wrap justify-start items-start gap-0 font-bold text-xl">

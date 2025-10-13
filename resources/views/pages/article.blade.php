@@ -19,9 +19,7 @@
                         </a>
                     </div>
                     <h1 class="text-2xl text-blue-900">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi animi est iste laborum
-                        libero dolorem! Aliquam necessitatibus magnam labore repellendus beatae? Accusantium, non
-                        esse.
+                        {{ $record->title ?? null }}
                         <span class="font-extrabold text-yellow-600">_</span>
                     </h1>
                     <h3 class="text-slate-500">
@@ -34,7 +32,7 @@
                             class="w-full h-full aspect-video object-contain transition duration-300 ease-in-out hover:scale-110">
                     </div>
                     <div class="text-slate-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, nam. Libero quas qui minima.
+                        {{ $record->description ?? null }}
                     </div>
                     {{-- @if ($record->attachment)
                         <div
@@ -53,34 +51,7 @@
                         </x-modal>
                     @endif --}}
                     <div class="space-y-2 content">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam dolorum doloremque
-                            blanditiis magnam maiores eum iste id rerum, esse corrupti natus laborum sequi non
-                            recusandae itaque, aliquid quam cupiditate illo est maxime necessitatibus molestias modi
-                            tenetur hic! Magni delectus reprehenderit dignissimos neque earum? Et quasi nemo iste
-                            tenetur ipsum repellendus perferendis nulla molestias temporibus nihil repudiandae officia
-                            cum, expedita vitae. Consequatur et quasi quas, veritatis, magnam tempore eaque iste omnis
-                            eius nobis assumenda illo nam quae unde laborum corrupti, possimus aliquam. Dolor nostrum
-                            vitae atque inventore impedit fugiat, eum nisi explicabo provident, ex ad sit deserunt
-                            ducimus nulla officiis. Necessitatibus suscipit temporibus corporis quidem facere quos
-                            placeat cumque recusandae soluta itaque ipsam ad dolor consequatur nulla veniam tenetur, sit
-                            eaque reprehenderit porro atque minima nihil? Praesentium velit aut provident laboriosam,
-                            labore quidem ullam minima assumenda! Consequuntur nemo qui tenetur totam eligendi nesciunt
-                            illo harum omnis modi exercitationem eaque dicta, aut reiciendis quibusdam molestiae. Fugit
-                            aliquid quaerat qui dolore asperiores ad, id accusamus, libero commodi odit enim adipisci
-                            corporis tempore nihil aut error reprehenderit eaque in ut nisi animi rem nostrum cum sit!
-                            Quisquam labore laudantium ipsum, alias qui mollitia inventore tempora odit porro,
-                            consectetur recusandae delectus dolorem facere soluta? Distinctio.
-                        </p>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit eaque dolorum voluptas quo
-                            provident sapiente natus explicabo, aperiam necessitatibus molestias deleniti, qui sint, eos
-                            quibusdam omnis odio doloribus nemo. Totam dicta eum nihil fugiat molestiae quae vel omnis
-                            dignissimos, sit impedit ducimus perspiciatis blanditiis voluptatem eos tenetur. Aliquid,
-                            delectus! Labore libero cupiditate, dolore quae dignissimos nemo nam, tenetur temporibus
-                            eligendi, fuga totam sapiente dolorem laborum nihil maxime repellendus sequi molestias
-                            quibusdam asperiores unde sint harum delectus ea? Rem porro facere optio laboriosam atque
-                            esse ab sed neque recusandae nam a dicta iure, tenetur consectetur nulla numquam velit
-                            explicabo, ea similique!
-                        </p>
+                        {!! $record->content ?? null !!}
                     </div>
                 </div>
             </div>
