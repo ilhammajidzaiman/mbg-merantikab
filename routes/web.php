@@ -11,3 +11,7 @@ Route::get('/welcome', function () {
 Route::prefix('/')->controller(Controllers\HomeController::class)->group(function () {
     Route::get('/', 'index')->name('index');
 });
+
+Route::prefix('/artikel')->controller(Controllers\ArticleController::class)->group(function () {
+    Route::get('/{id}', 'show')->name('article.show');
+});

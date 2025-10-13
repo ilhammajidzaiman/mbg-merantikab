@@ -263,45 +263,82 @@
                     $berita = [
                         (object) [
                             'title' => 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
+                            'slug' => trim(Str::slug('Lorem ipsum dolor sit amet, consectetur adipisicing.')),
                             'file' => asset('kindergarten-student-bro.svg'),
                         ],
                         (object) [
                             'title' => 'Lorem ipsum dolor sit.',
+                            'slug' => trim(Str::slug('Lorem ipsum dolor sit.')),
                             'file' => asset('children-bro.svg'),
                         ],
                         (object) [
                             'title' =>
                                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
+                            'slug' => trim(
+                                Str::slug(
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
+                                ),
+                            ),
                             'file' => asset('motherhood-bro.svg'),
                         ],
                         (object) [
                             'title' =>
                                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis veritatis atque iste odio dignissimos earum labore.',
+                            'slug' => trim(
+                                Str::slug(
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis veritatis atque iste odio dignissimos earum labore.',
+                                ),
+                            ),
                             'file' => asset('children-bro.svg'),
                         ],
                         (object) [
                             'title' =>
                                 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis sit commodi laudantium praesentium odit totam reprehenderit cumque! Quo, necessitatibus!',
+                            'slug' => trim(
+                                Str::slug(
+                                    'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis sit commodi laudantium praesentium odit totam reprehenderit cumque! Quo, necessitatibus!',
+                                ),
+                            ),
                             'file' => asset('motherhood-bro.svg'),
                         ],
                         (object) [
                             'title' =>
                                 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est, deserunt optio alias ipsa iste corrupti?',
+                            'slug' => trim(
+                                Str::slug(
+                                    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est, deserunt optio alias ipsa iste corrupti?',
+                                ),
+                            ),
                             'file' => asset('children-bro.svg'),
                         ],
                         (object) [
                             'title' =>
                                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid provident cumque enim repellat a temporibus corrupti recusandae velit ipsum culpa.',
+                            'slug' => trim(
+                                Str::slug(
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid provident cumque enim repellat a temporibus corrupti recusandae velit ipsum culpa.',
+                                ),
+                            ),
                             'file' => asset('motherhood-bro.svg'),
                         ],
                         (object) [
                             'title' =>
                                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi commodi explicabo quas. Eos harum adipisci illum eaque.',
+                            'slug' => trim(
+                                Str::slug(
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi commodi explicabo quas. Eos harum adipisci illum eaque.',
+                                ),
+                            ),
                             'file' => asset('kindergarten-student-bro.svg'),
                         ],
                         (object) [
                             'title' =>
                                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptas debitis eum.',
+                            'slug' => trim(
+                                Str::slug(
+                                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptas debitis eum.',
+                                ),
+                            ),
                             'file' => asset('motherhood-bro.svg'),
                         ],
                     ];
@@ -316,7 +353,7 @@
                                         class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
                                 </div>
                                 <h1 class="line-clamp-2 mb-4">
-                                    <a href="#" class="hover:underline">
+                                    <a href="{{ route('article.show', $item->slug ?? null) }}" class="hover:underline">
                                         {{ $item->title ?? null }}
                                     </a>
                                 </h1>
