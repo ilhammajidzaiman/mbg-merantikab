@@ -14,39 +14,18 @@ class HomeController extends Controller
     public function index()
     {
         $data['carousel'] = Carousel::Active()
-            ->latest()
+            ->latest('updated_at')
             ->take(5)
             ->get();
-        // $data['shortcut'] = Shortcut::latest()
-        //     ->take(20)
-        //     ->get();
-        // $data['berita'] = Article::latest()
-        //     ->take(9)
-        //     ->get();
-        // $data['kegiatan'] = Image::latest()
-        //     ->take(9)
-        //     ->get();
-
-        // $data['carousel'] = [
-        //     (object) [
-        //         'title' =>
-        //         'Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing.Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing.Lorem ipsum dolor sit amet, consectetur adipisicing.',
-        //         'file' => asset('kindergarten-student-bro.svg'),
-        //     ],
-        //     (object) [
-        //         'title' => 'Lorem ipsum dolor sit.',
-        //         'file' => asset('children-bro.svg'),
-        //     ],
-        //     (object) [
-        //         'title' =>
-        //         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
-        //         'file' => asset('motherhood-bro.svg'),
-        //     ],
-        //     (object) [
-        //         'title' => 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
-        //         'file' => asset('mbg.webp'),
-        //     ],
-        // ];
+        $data['shortcut'] = Shortcut::latest('updated_at')
+            ->take(20)
+            ->get();
+        $data['berita'] = Article::latest()
+            ->take(9)
+            ->get();
+        $data['kegiatan'] = Image::latest()
+            ->take(9)
+            ->get();
 
         $data['shortcut'] = [
             (object) [
