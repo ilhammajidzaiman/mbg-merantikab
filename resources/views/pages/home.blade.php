@@ -4,8 +4,7 @@
 
     <x-wrapper id="carousel" class="mt-22">
         <x-container>
-            @if ($carousel)
-                {{-- @if ($carousel->isNotEmpty()) --}}
+            @if ($carousel->isNotEmpty())
                 <div x-data="{
                     active: 0,
                     total: {{ count($carousel) }},
@@ -40,7 +39,8 @@
                             x-transition:leave="transition-opacity duration-700 ease-out"
                             x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                             class="absolute inset-0 w-full h-full">
-                            <img src="{{ $item->file }}" alt="image" class="w-full h-full object-cover rounded-lg">
+                            <img src="{{ Storage::url($item->file ?? null) }}" alt="image"
+                                class="w-full h-full object-cover rounded-lg">
                             <div
                                 class="absolute bottom-0 left-0 right-0 bg-slate-700/30 text-shadow-md text-white text-center font-medium text-xl p-4 h-24 flex items-center justify-center">
                                 <p class="line-clamp-2">
@@ -225,7 +225,7 @@
                     <div class="col-span-full">
                         <div class="flex items-center gap-4">
                             <div class="grow h-px bg-yellow-600"></div>
-                            <a wire:navigate href="{{ route('index') }}"
+                            <a wire:navigate href="{{ route('article.index') }}"
                                 class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-600 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
                                 Selengkapnya
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

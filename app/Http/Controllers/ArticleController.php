@@ -3,10 +3,102 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    public function index()
+    {
+        $data['article'] = [
+            (object) [
+                'title' => 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
+                'slug' => trim(Str::slug('Lorem ipsum dolor sit amet, consectetur adipisicing.')),
+                'file' => asset('kindergarten-student-bro.svg'),
+            ],
+            (object) [
+                'title' => 'Lorem ipsum dolor sit.',
+                'slug' => trim(Str::slug('Lorem ipsum dolor sit.')),
+                'file' => asset('children-bro.svg'),
+            ],
+            (object) [
+                'title' =>
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
+                'slug' => trim(
+                    Str::slug(
+                        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
+                    ),
+                ),
+                'file' => asset('motherhood-bro.svg'),
+            ],
+            (object) [
+                'title' =>
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis veritatis atque iste odio dignissimos earum labore.',
+                'slug' => trim(
+                    Str::slug(
+                        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis veritatis atque iste odio dignissimos earum labore.',
+                    ),
+                ),
+                'file' => asset('children-bro.svg'),
+            ],
+            (object) [
+                'title' =>
+                'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis sit commodi laudantium praesentium odit totam reprehenderit cumque! Quo, necessitatibus!',
+                'slug' => trim(
+                    Str::slug(
+                        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis sit commodi laudantium praesentium odit totam reprehenderit cumque! Quo, necessitatibus!',
+                    ),
+                ),
+                'file' => asset('motherhood-bro.svg'),
+            ],
+            (object) [
+                'title' =>
+                'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est, deserunt optio alias ipsa iste corrupti?',
+                'slug' => trim(
+                    Str::slug(
+                        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est, deserunt optio alias ipsa iste corrupti?',
+                    ),
+                ),
+                'file' => asset('children-bro.svg'),
+            ],
+            (object) [
+                'title' =>
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid provident cumque enim repellat a temporibus corrupti recusandae velit ipsum culpa.',
+                'slug' => trim(
+                    Str::slug(
+                        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid provident cumque enim repellat a temporibus corrupti recusandae velit ipsum culpa.',
+                    ),
+                ),
+                'file' => asset('motherhood-bro.svg'),
+            ],
+            (object) [
+                'title' =>
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi commodi explicabo quas. Eos harum adipisci illum eaque.',
+                'slug' => trim(
+                    Str::slug(
+                        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi commodi explicabo quas. Eos harum adipisci illum eaque.',
+                    ),
+                ),
+                'file' => asset('kindergarten-student-bro.svg'),
+            ],
+            (object) [
+                'title' =>
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptas debitis eum.',
+                'slug' => trim(
+                    Str::slug(
+                        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptas debitis eum.',
+                    ),
+                ),
+                'file' => asset('motherhood-bro.svg'),
+            ],
+        ];
+        // $data['article'] = Article::withOnly(['tags', 'category'])
+        //     ->latest()
+        //     ->take(9)
+        //     ->get();
+        return view('pages.article.index', $data);
+    }
+
     public function show(string $id)
     {
         // $data['record'] = Article::show()
@@ -52,6 +144,6 @@ class ArticleController extends Controller
                     'title' => 'mbg',
                 ],
             ];
-        return view('pages.article', $data);
+        return view('pages.article.show', $data);
     }
 }

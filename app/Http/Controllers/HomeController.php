@@ -13,9 +13,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // $data['carousel'] = Carousel::latest()
-        //     ->take(5)
-        //     ->get();
+        $data['carousel'] = Carousel::Active()
+            ->latest()
+            ->take(5)
+            ->get();
         // $data['shortcut'] = Shortcut::latest()
         //     ->take(20)
         //     ->get();
@@ -26,26 +27,26 @@ class HomeController extends Controller
         //     ->take(9)
         //     ->get();
 
-        $data['carousel'] = [
-            (object) [
-                'title' =>
-                'Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing.Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing.Lorem ipsum dolor sit amet, consectetur adipisicing.',
-                'file' => asset('kindergarten-student-bro.svg'),
-            ],
-            (object) [
-                'title' => 'Lorem ipsum dolor sit.',
-                'file' => asset('children-bro.svg'),
-            ],
-            (object) [
-                'title' =>
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
-                'file' => asset('motherhood-bro.svg'),
-            ],
-            (object) [
-                'title' => 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
-                'file' => asset('mbg.webp'),
-            ],
-        ];
+        // $data['carousel'] = [
+        //     (object) [
+        //         'title' =>
+        //         'Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing.Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing.Lorem ipsum dolor sit amet, consectetur adipisicing.',
+        //         'file' => asset('kindergarten-student-bro.svg'),
+        //     ],
+        //     (object) [
+        //         'title' => 'Lorem ipsum dolor sit.',
+        //         'file' => asset('children-bro.svg'),
+        //     ],
+        //     (object) [
+        //         'title' =>
+        //         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem voluptatem assumenda quaerat quia.',
+        //         'file' => asset('motherhood-bro.svg'),
+        //     ],
+        //     (object) [
+        //         'title' => 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
+        //         'file' => asset('mbg.webp'),
+        //     ],
+        // ];
 
         $data['shortcut'] = [
             (object) [

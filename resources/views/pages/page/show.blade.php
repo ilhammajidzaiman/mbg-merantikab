@@ -1,4 +1,4 @@
-<x-layout.app-layout title="{{ Str::headline(__('beranda')) }}">
+<x-layout.app-layout title="{{ Str::headline(__('halaman')) }}">
 
     @include('components.layout.navigation')
     <x-wrapper class="mt-22">

@@ -56,11 +56,15 @@ class CarouselResource extends Resource
                             ->label('Deskripsi'),
                         FileUpload::make('file')
                             ->label('Gambar')
-                            ->directory('Carousels/' . date('Y-m-d'))
+                            ->directory('carousels/' . date('Y-m-d'))
+                            ->optimize('webp')
                             ->image()
-                            ->imageEditor()
                             ->openable()
                             ->downloadable()
+                            ->imageEditor()
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('16:9')
+                            ->imageEditorAspectRatios(['16:9'])
                             ->maxSize(512),
                         Toggle::make('is_active')
                             ->label('Status')
