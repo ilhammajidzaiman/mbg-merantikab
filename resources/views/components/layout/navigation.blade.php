@@ -8,8 +8,20 @@
         ],
         (object) [
             'title' => 'Berita',
-            'route' => route('index'),
-            'isActive' => null,
+            'route' => route('article.index'),
+            'isActive' => request()->routeIs('article*'),
+            'children' => null,
+        ],
+        (object) [
+            'title' => 'Galeri',
+            'route' => route('galery.index'),
+            'isActive' => request()->routeIs('galery*'),
+            'children' => null,
+        ],
+        (object) [
+            'title' => 'Dokumen',
+            'route' => route('file.index'),
+            'isActive' => request()->routeIs('file*'),
             'children' => null,
         ],
         (object) [
@@ -24,32 +36,6 @@
                 ],
                 (object) [
                     'title' => 'Profil',
-                    'route' => route('index'),
-                ],
-            ],
-        ],
-        (object) [
-            'title' => 'Layanan',
-            'route' => route('index'),
-            'isActive' => null,
-            'children' => null,
-        ],
-        (object) [
-            'id' => '2',
-            'title' => 'Informasi Publik',
-            'route' => null,
-            'isActive' => null,
-            'children' => [
-                (object) [
-                    'title' => 'Publikasi Dokumen',
-                    'route' => route('index'),
-                ],
-                (object) [
-                    'title' => 'Foto',
-                    'route' => route('index'),
-                ],
-                (object) [
-                    'title' => 'Vidio',
                     'route' => route('index'),
                 ],
             ],

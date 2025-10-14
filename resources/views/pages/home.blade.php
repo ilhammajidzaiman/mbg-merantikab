@@ -1,7 +1,4 @@
-<x-layout.app-layout title="{{ Str::headline(__('beranda')) }}">
-
-    @include('components.layout.navigation')
-
+<x-app-layout title="{{ Str::headline(__('beranda')) }}">
     <x-wrapper id="carousel" class="mt-22">
         <x-container>
             @if ($carousel->isNotEmpty())
@@ -108,8 +105,12 @@
                         </p>
                         <p class="font-light mt-6">
                             BGN (Badan Gizi Nasional) adalah Lembaga pelaksana/pengelola program Makan Gizi Gratis (MBG)
-                            yang akan merancang, mengatur, mengawasi, dan menjalankan program MBG agar efektif, tepat
+                            yang merancang, mengatur, mengawasi, dan menjalankan program MBG agar efektif, tepat
                             sasaran, dan berkelanjutan.
+                        </p>
+                        <p class="font-light mt-6">
+                            Tim terdiri dari berbagai golongan, yang semuanya berdedikasi untuk mencapai tujuan BGN
+                            dalam pemenuhan Makan Gizi Gratis (MBG)
                         </p>
                     </div>
                 </div>
@@ -356,4 +357,4 @@
             </div>
         </x-container>
     </x-wrapper>
-</x-layout.app-layout>
+    </x-layout.app-layout>

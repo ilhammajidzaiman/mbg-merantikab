@@ -24,9 +24,9 @@
 </head>
 
 <body class="bg-slate-100 text-slate-700 text-lg">
-    {{-- <x-layout.navigation /> --}}
+    <x-navigation />
     {{ $slot }}
-    <x-layout.footer />
+    <x-footer />
     @stack('scripts')
     @livewireScripts
 </body>

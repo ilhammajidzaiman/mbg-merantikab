@@ -1,7 +1,5 @@
-<x-layout.app-layout title="{{ Str::headline(__('halaman')) }}">
-
-    @include('components.layout.navigation')
-    <x-wrapper class="mt-22">
+<x-app-layout title="{{ Str::headline(__('halaman')) }}">
+    <x-wrapper class="mt-24">
 
         <x-container>
             <div class="grid grid-cols-12 gap-4 ">
@@ -59,4 +57,4 @@
     </x-wrapper>
 
 
-</x-layout.app-layout>
+    </x-layout.app-layout>

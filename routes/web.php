@@ -22,5 +22,9 @@ Route::prefix('/halaman')->controller(Controllers\PageController::class)->group(
 
 Route::prefix('/galeri')->controller(Controllers\GaleryController::class)->group(function () {
     Route::get('/', 'index')->name('galery.index');
-    Route::get('/{id}', 'show')->name('galery.show');
+});
+
+Route::prefix('/dokumen')->controller(Controllers\FileController::class)->group(function () {
+    Route::get('/', 'index')->name('file.index');
+    Route::get('/{id}', 'show')->name('file.show');
 });
