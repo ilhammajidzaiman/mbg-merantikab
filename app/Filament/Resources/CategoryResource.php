@@ -37,7 +37,7 @@ class CategoryResource extends Resource
                 Card::make()
                     ->schema([
                         TextInput::make('title')
-                            ->reactive()
+                            ->live(onBlur: true)
                             ->maxLength(255)
                             ->afterStateUpdated(function (Set $set, ?string $state) {
                                 $set('slug', Str::slug($state));
