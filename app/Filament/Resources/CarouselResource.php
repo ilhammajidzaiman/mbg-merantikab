@@ -65,7 +65,7 @@ class CarouselResource extends Resource
                             ->imageResizeMode('cover')
                             ->imageCropAspectRatio('16:9')
                             ->imageEditorAspectRatios(['16:9'])
-                            ->maxSize(512),
+                            ->maxSize(20480),
                         Toggle::make('is_active')
                             ->label('Status')
                             ->default('1'),

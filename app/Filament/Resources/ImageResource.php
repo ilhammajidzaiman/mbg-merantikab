@@ -57,11 +57,12 @@ class ImageResource extends Resource
                         FileUpload::make('file')
                             ->label('Gambar')
                             ->directory('Images/' . date('Y-m-d'))
+                            ->optimize('webp')
                             ->image()
                             ->imageEditor()
                             ->openable()
                             ->downloadable()
-                            ->maxSize(512),
+                            ->maxSize(20480),
                         Toggle::make('is_active')
                             ->label('Status')
                             ->default('1'),

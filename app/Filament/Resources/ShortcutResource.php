@@ -2,16 +2,23 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ShortcutResource\Pages;
-use App\Filament\Resources\ShortcutResource\RelationManagers;
-use App\Models\Shortcut;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Shortcut;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Filters\TrashedFilter;
+use App\Filament\Resources\ShortcutResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ShortcutResource\RelationManagers;
 
 class ShortcutResource extends Resource
 {
@@ -26,7 +33,19 @@ class ShortcutResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Section::make()
+                    ->schema([
+                        Select::make('link_id')
+                            ->label('Tautan')
+                            ->relationship('link', 'title')
+                            ->required(),
+                        TextInput::make('order')
+                            ->numeric()
+                            ->label('Urutan'),
+                        Toggle::make('is_active')
+                            ->label('Status')
+                            ->default('1'),
+                    ])
             ]);
     }
 
@@ -34,7 +53,20 @@ class ShortcutResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('index')
+                    ->label('No')
+                    ->rowIndex(),
+                TextColumn::make('link.title')
+                    ->label('Tautan')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('order')
+                    ->label('Urutan')
+                    ->sortable()
+                    ->searchable(),
+                ToggleColumn::make('is_active')
+                    ->label('Status')
+                    ->sortable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
