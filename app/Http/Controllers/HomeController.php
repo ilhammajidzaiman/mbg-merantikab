@@ -27,36 +27,36 @@ class HomeController extends Controller
             ->take(9)
             ->get();
 
-        $data['shortcut'] = [
-            (object) [
-                'title' => 'Lorem, ipsum.',
-                'file' => asset('logo.png'),
-            ],
-            (object) [
-                'title' => 'Lorem',
-                'file' => asset('logo.png'),
-            ],
-            (object) [
-                'title' => 'Lorem, ipsum dolor.',
-                'file' => asset('logo.png'),
-            ],
-            (object) [
-                'title' => 'Lorem ipsum dolor sit.',
-                'file' => asset('logo.png'),
-            ],
-            (object) [
-                'title' => 'Lorem',
-                'file' => asset('logo.png'),
-            ],
-            (object) [
-                'title' => 'Lorem ipsum dolor sit amet consectetur.',
-                'file' => asset('logo.png'),
-            ],
-            (object) [
-                'title' => 'Lorem, ipsum.',
-                'file' => asset('logo.png'),
-            ],
-        ];
+        // $data['shortcut'] = [
+        //     (object) [
+        //         'title' => 'Lorem, ipsum.',
+        //         'file' => asset('logo.png'),
+        //     ],
+        //     (object) [
+        //         'title' => 'Lorem',
+        //         'file' => asset('logo.png'),
+        //     ],
+        //     (object) [
+        //         'title' => 'Lorem, ipsum dolor.',
+        //         'file' => asset('logo.png'),
+        //     ],
+        //     (object) [
+        //         'title' => 'Lorem ipsum dolor sit.',
+        //         'file' => asset('logo.png'),
+        //     ],
+        //     (object) [
+        //         'title' => 'Lorem',
+        //         'file' => asset('logo.png'),
+        //     ],
+        //     (object) [
+        //         'title' => 'Lorem ipsum dolor sit amet consectetur.',
+        //         'file' => asset('logo.png'),
+        //     ],
+        //     (object) [
+        //         'title' => 'Lorem, ipsum.',
+        //         'file' => asset('logo.png'),
+        //     ],
+        // ];
 
         $data['berita'] = [
             (object) [
