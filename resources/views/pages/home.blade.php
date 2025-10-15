@@ -132,7 +132,7 @@
                         @foreach ($shortcut as $item)
                             <div
                                 class="flex items-center gap-4 bg-white hover:bg-slate-100 px-4 py-2 rounded-lg transition duration-300 ease-in-out hover:scale-105 ">
-                                <img src="{{ $item->link->file }}" class="w-auto h-16 aspect-square">
+                                <img src="{{ Storage::url($item->link->file) }}" class="w-auto h-16 aspect-square">
                                 <span class="text-xl text-sky-950">{{ $item->link->title ?? null }}</span>
                             </div>
                         @endforeach
