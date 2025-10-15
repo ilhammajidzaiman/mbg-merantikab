@@ -26,38 +26,6 @@ class HomeController extends Controller
         $data['kegiatan'] = Image::latest()
             ->take(9)
             ->get();
-
-        // $data['shortcut'] = [
-        //     (object) [
-        //         'title' => 'Lorem, ipsum.',
-        //         'file' => asset('logo.png'),
-        //     ],
-        //     (object) [
-        //         'title' => 'Lorem',
-        //         'file' => asset('logo.png'),
-        //     ],
-        //     (object) [
-        //         'title' => 'Lorem, ipsum dolor.',
-        //         'file' => asset('logo.png'),
-        //     ],
-        //     (object) [
-        //         'title' => 'Lorem ipsum dolor sit.',
-        //         'file' => asset('logo.png'),
-        //     ],
-        //     (object) [
-        //         'title' => 'Lorem',
-        //         'file' => asset('logo.png'),
-        //     ],
-        //     (object) [
-        //         'title' => 'Lorem ipsum dolor sit amet consectetur.',
-        //         'file' => asset('logo.png'),
-        //     ],
-        //     (object) [
-        //         'title' => 'Lorem, ipsum.',
-        //         'file' => asset('logo.png'),
-        //     ],
-        // ];
-
         $data['berita'] = [
             (object) [
                 'title' => 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
@@ -140,48 +108,6 @@ class HomeController extends Controller
                 'file' => asset('motherhood-bro.svg'),
             ],
         ];
-
-        $data['kegiatan'] = [
-            (object) [
-                'file' => asset('kindergarten-student-bro.svg'),
-                'description' =>
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum suscipit molestiae quisquam!',
-            ],
-            (object) [
-                'file' => asset('children-bro.svg'),
-                'description' =>
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ea omnis qui quisquam!',
-            ],
-            (object) [
-                'file' => asset('motherhood-bro.svg'),
-                'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
-            ],
-            (object) [
-                'file' => asset('children-bro.svg'),
-                'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis.',
-            ],
-            (object) [
-                'file' => asset('motherhood-bro.svg'),
-                'description' => 'Lorem ipsum dolor sit amet consectetur.',
-            ],
-            (object) [
-                'file' => asset('children-bro.svg'),
-                'description' =>
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis voluptate nostrum, adipisci exercitationem itaque ipsa magni.',
-            ],
-            (object) [
-                'file' => asset('motherhood-bro.svg'),
-                'description' =>
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore amet quisquam deserunt vitae odio obcaecati, atque deleniti numquam saepe.',
-            ],
-            (object) [
-                'file' => asset('kindergarten-student-bro.svg'),
-                'description' =>
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error exercitationem deleniti veritatis doloremque, molestiae repellendus at quis, nemo nesciunt quos vitae, quasi fugit. Voluptate animi quam aliquam?',
-            ],
-            (object) ['file' => asset('motherhood-bro.svg'), 'description' => 'Lorem, ipsum dolor.'],
-        ];
-
         $data['sasaran'] = [
             (object) [
                 'title' => 'Peserta Didik',
