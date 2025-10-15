@@ -263,7 +263,7 @@
                         @foreach ($kegiatan as $item)
                             <div class="col-span-full md:col-span-4">
                                 <div class="bg-white rounded-lg shadow-xs gap-4 cursor-pointer"
-                                    @click="selected = { file: '{{ $item->file ?? null }}', description: '{{ $item->description ?? 'Tidak ada deskripsi.' }}' }; open = true;">
+                                    @click="selected = { file: '{{ Storage::url($item->file) }}', description: '{{ $item->description ?? null }}' }; open = true;">
                                     <div class="aspect-video overflow-hidden rounded-lg">
                                         <img src="{{ Storage::url($item->file) }}"
                                             class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
