@@ -273,7 +273,7 @@
                         <div class="col-span-full">
                             <div class="flex items-center gap-4">
                                 <div class="grow h-px bg-yellow-600"></div>
-                                <a wire:navigate href="{{ route('index') }}"
+                                <a wire:navigate href="{{ route('galery.index') }}"
                                     class="inline-flex items-center gap-2 text-base font-normal text-white rounded-lg bg-yellow-600 hover:bg-yellow-800 transition duration-300 ease-in-out px-4 py-2">
                                     Selengkapnya
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

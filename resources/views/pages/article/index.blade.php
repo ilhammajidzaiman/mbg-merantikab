@@ -13,14 +13,13 @@
                         </h3>
                     </div>
                 </div>
-                @if ($article)
-                    {{-- @if ($article->isNotEmpty()) --}}
+                @if ($article->isNotEmpty())
                     @foreach ($article as $item)
                         <div class="col-span-full md:col-span-4">
                             <div class="">
                                 <div class="flex flex-col space-y-2">
                                     <div class="aspect-video overflow-hidden rounded-lg"><img
-                                            src="{{ $item->file ?? null }}"
+                                            src="{{ Storage::url($item->file ?? null) }}"
                                             class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
                                     </div>
                                     <h1 class="line-clamp-2 mb-4">

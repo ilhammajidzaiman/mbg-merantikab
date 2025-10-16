@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
+use App\Models\Tag;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Str;
+use App\Traits\ReadTimeTrait;
+use App\Traits\FormatDateTimeTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Article extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, FormatDateTimeTrait, ReadTimeTrait;
 
     protected $fillable = [
         'title',
@@ -54,5 +59,10 @@ class Article extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'posts', 'article_id', 'tag_id')->withTimestamps();
     }
 }
