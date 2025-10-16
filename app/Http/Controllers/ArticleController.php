@@ -8,11 +8,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $data['article'] = Article::withOnly(['tags', 'category'])
-            ->latest()
-            ->take(9)
-            ->get();
-        return view('pages.article.index', $data);
+        return view('pages.article.index');
     }
 
     public function show(string $id)
