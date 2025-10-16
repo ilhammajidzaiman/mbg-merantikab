@@ -9,7 +9,7 @@ class Article extends Component
 {
     public $search = '';
     public $page = 1;
-    public $perPage = 1;
+    public $perPage = 9;
     public $lastPage = 1;
     public $more = false;
     public $data;
