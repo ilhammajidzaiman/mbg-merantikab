@@ -28,7 +28,7 @@ class CreateArticle extends CreateRecord
                         $constraint->aspectRatio();
                         $constraint->upsize();
                     })
-                    ->encode($extension, 50);
+                    ->encode($extension, 60);
                 $storage->put($thumbnail, (string) $image);
                 $data['thumbnail'] = $thumbnail;
             endif;
