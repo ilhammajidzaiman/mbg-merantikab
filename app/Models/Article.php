@@ -25,6 +25,7 @@ class Article extends Model
         'content',
         'description',
         'file',
+        'thumbnail',
         'attachment'
     ];
 

@@ -107,7 +107,7 @@ class ArticleResource extends Resource
                             ->helperText('Anda bisa membuat Kategori baru jika tidak tersedia.'),
                         FileUpload::make('file')
                             ->label('Gambar')
-                            ->directory('Article-images/' . date('Y-m-d'))
+                            ->directory('article-image/' . date('Y/m'))
                             ->optimize('webp')
                             ->image()
                             ->imageEditor()
@@ -117,7 +117,7 @@ class ArticleResource extends Resource
                         FileUpload::make('attachment')
                             ->multiple()
                             ->label('Lampiran')
-                            ->directory('Article-attachment/' . date('Y-m-d'))
+                            ->directory('article-attachment/' . date('Y/m'))
                             ->optimize('webp')
                             ->image()
                             ->imageEditor()
