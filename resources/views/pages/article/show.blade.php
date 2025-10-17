@@ -36,7 +36,7 @@
                             {{ $record->readTimeFormatted($record->content ?? null) }}.
                         </h3>
                         <div class="aspect-video overflow-hidden border border-slate-300 bg-slate-200 rounded-xl">
-                            <img src="{{ Storage::url($item->file ?? null) }}" alt="image"
+                            <img src="{{ Storage::url($record->file ?? null) }}" alt="image"
                                 class="w-full h-full aspect-video object-contain transition duration-300 ease-in-out hover:scale-110">
                         </div>
                         @if ($record->description)
