@@ -25,13 +25,11 @@ class Article extends Model
         'content',
         'description',
         'file',
-        'thumbnail',
-        'attachment'
+        'attachment',
     ];
 
     protected $hidden = [
         'uuid',
-        'is_active',
     ];
 
     protected $casts = [

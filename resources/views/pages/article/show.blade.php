@@ -28,7 +28,6 @@
                         </div>
                         <h1 class="text-2xl text-blue-900">
                             {{ $record->title ?? null }}
-                            <span class="font-extrabold text-yellow-600">_</span>
                         </h1>
                         <h3 class="text-slate-500">
                             {{ $record->formatDayDateTime($record->published_at ?? null) }},

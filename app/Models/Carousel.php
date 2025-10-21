@@ -22,7 +22,6 @@ class Carousel extends Model
 
     protected $hidden = [
         'uuid',
-        'is_active',
     ];
 
     protected $casts = [

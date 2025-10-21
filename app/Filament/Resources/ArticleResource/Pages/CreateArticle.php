@@ -13,22 +13,22 @@ class CreateArticle extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        if (! empty($data['file'])) :
-            $storage = Storage::disk('public');
-            $path = 'article-thumbnail/' . date('Y/m');
-            $storage->makeDirectory($path);
-            $file = $data['file'];
-            $fileName = pathinfo($file, PATHINFO_FILENAME);
-            $extension = pathinfo($file, PATHINFO_EXTENSION);
-            $thumbnail = $path . '/' . $fileName . '.' . $extension;
-            if ($storage->exists($file)) :
-                $originalFullPath = $storage->path($file);
+        $stateFile = $data['file'];
+        $storage = Storage::disk('public');
+        $path = 'article-thumbnail/' . date('Y/m');
+        $storage->makeDirectory($path);
+        $fileName = pathinfo($stateFile, PATHINFO_FILENAME);
+        $extension = pathinfo($stateFile, PATHINFO_EXTENSION);
+        $thumbnail = $path . '/' . $fileName . '.' . $extension;
+        if (! empty($stateFile)) :
+            if ($storage->exists($stateFile)) :
+                $originalFullPath = $storage->path($stateFile);
                 $image = Image::make($originalFullPath)
                     ->resize(400, null, function ($constraint) {
                         $constraint->aspectRatio();
                         $constraint->upsize();
                     })
-                    ->encode($extension, 60);
+                    ->encode($extension);
                 $storage->put($thumbnail, (string) $image);
                 $data['thumbnail'] = $thumbnail;
             endif;
