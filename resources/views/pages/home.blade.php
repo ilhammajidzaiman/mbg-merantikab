@@ -264,7 +264,7 @@
                                 <div class="bg-white rounded-lg shadow-xs gap-4 cursor-pointer"
                                     @click="selected = { file: '{{ Storage::url($item->file) }}', description: '{{ $item->description ?? null }}' }; open = true;">
                                     <div class="aspect-video overflow-hidden rounded-lg">
-                                        <img src="{{ Storage::url($item->file) }}"
+                                        <img src="{{ Storage::url('thumbnail/' . $item->file ?? null) }}"
                                             class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
                                     </div>
                                 </div>
