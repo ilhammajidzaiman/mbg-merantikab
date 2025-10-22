@@ -39,33 +39,35 @@ class ImageResource extends Resource
                 Section::make()
                     ->schema([
                         TextInput::make('title')
+                            ->label(Str::title(__('judul')))
                             ->live(onBlur: true)
                             ->maxLength(255)
                             ->afterStateUpdated(function (Set $set, ?string $state) {
                                 $set('slug', Str::slug($state));
                             })
-                            ->label('Judul')
                             ->required(),
                         TextInput::make('slug')
+                            ->label(Str::title(__('slug')))
+                            ->helperText(Str::title(__('slug akan otomatis dihasilkan dari judul')))
                             ->disabled()
                             ->maxLength(255)
                             ->dehydrated()
-                            ->helperText('Slug akan otomatis dihasilkan dari judul.')
                             ->required(),
                         Textarea::make('description')
-                            ->label('Deskripsi'),
+                            ->label(Str::title(__('deskripsi'))),
                         FileUpload::make('file')
-                            ->label('Gambar')
-                            ->directory('Images/' . date('Y-m-d'))
+                            ->label(Str::title(__('gambar')))
+                            ->directory('image/' . date('Y/m'))
                             ->optimize('webp')
                             ->image()
                             ->imageEditor()
+                            ->resize(60)
                             ->openable()
                             ->downloadable()
                             ->maxSize(20480),
                         Toggle::make('is_active')
-                            ->label('Status')
-                            ->default('1'),
+                            ->label(Str::title(__('status')))
+                            ->default(true),
                     ])
             ]);
     }
